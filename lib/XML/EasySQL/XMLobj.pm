@@ -5,7 +5,7 @@ module, which offers Easy XML object navigation
 
 =head1 VERSION
 
-Version 1.0
+Version 1.2
 
 =head1 SYNOPSIS
 
@@ -29,7 +29,7 @@ Robert Hanson
 
  # create new file
  my $doc = new XML::EasySQL::XMLobj({type => 'new', param => 'root_tag'});
- 
+
  # read from document
  my $text = $doc->root->some_element($index)->getString;
  my $attr = $doc->root->some_element($index)->getAttr('foo');
@@ -89,11 +89,16 @@ package XML::EasySQL::XMLobj;
 use XML::DOM;
 use strict;
 
+use vars qw/$VERSION/;
+$VERSION = '1.2';
+
 =head2 new
 
 You can create a new object from an XML file, a string of XML, or
 a new document.  The constructor takes an anon hash with the following
 keys:
+
+=over
 
 =item type
 
@@ -110,10 +115,10 @@ If -type is "string", this is a string of XML code.  If -type is
 
 =item class_constructor
 
-If you’ve made a derived class from XML::EasySQL::XMLnode, specify the class
+If you've made a derived class from XML::EasySQL::XMLnode, specify the class
 name here. It defaults to XML::EasySQL::XMLobj::Node.
 
-If you’re using constructor_class, any additional keys will be passed on to
+If you're using constructor_class, any additional keys will be passed on to
 the XML::EasySQL::XMLobj::Node derived class.
 
 Creating an object from an XML file:
@@ -127,6 +132,8 @@ Creating an object from a string containing the XML source:
 Creating a new XML document by passing the root tag name:
 
  my $doc = new XML::EasySQL::XMLobj({type => 'new', param => 'root_tag'});
+
+=back
 
 =cut
 
@@ -291,10 +298,10 @@ We can also break it down like this:
 
  # grab the FIRST "record" element (index starts at 0)
  my $record = $doc->root->record(0);
- 
+
  # grab the SECOND "rec2" element within $record
  my $rec2 = $record->rec2(1);
- 
+
  # grab the "field2" element from $rec2
  # NOTE: If you don't specify an index, the first item 
  #       is returned and in this case there is only 1.

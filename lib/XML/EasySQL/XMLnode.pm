@@ -4,7 +4,7 @@ XML::EasySQL::XMLnode - This is a child class of XML::EasySQL::XMLobj::Node.
 
 =head1 VERSION
 
-Version 1.0
+Version 1.2
 
 =head1 DESCRIPTION
 
@@ -28,6 +28,9 @@ use XML::EasySQL::XMLobj::Node;
 @ISA = ('XML::EasySQL::XMLobj::Node');
 
 use strict;
+
+use vars qw/$VERSION/;
+$VERSION = '1.2';
 
 sub new {
         my $proto = shift;

@@ -6,7 +6,7 @@ Lee Fulton (http://fultron.net; curtisf@fultron.net).
 
 =head1 VERSION
 
-Version 1.0
+Version 1.2
 
 =head1 SYNOPSIS
 
@@ -126,7 +126,6 @@ The class has inherited all of XML::EasySQL's methods. The constructor passes th
 
 So you'd use the User class like this:
 
-...
  # fetch the data from the database
  my $data = $db->selectrow_hashref('select * from users where id = 2');
  my $comments_data = $db->selectrow_hashref('select * from comments where id = 
@@ -219,7 +218,7 @@ So the "User" class could now look something like this:
 	# get the SQL data
 	$params->{query}->{users} = $params->{user_id};
 	$params->{query}->{comments} = $params->{comment_id};
-	
+
 	# save the ids
 	$self->{query} = $params->{query};
         my $class = ref($proto) || $proto;
@@ -284,11 +283,15 @@ two attributes:
 
 type - describes how the SQL data will map onto the XML tree. There are three
 types:
+
    o attrib - simply applies the column value as an XML attribute on the root
 node
-   o string - An XML string that's a child of the root node
+
+   o string - An XML string that's a child of the root nodea
+
    o element - assumes the column value is pure XML. It is parsed into an XML
 branch and grafted onto the root node of the XML document.
+
 
 table - The table the column belongs to. If missing, it defaults to
 "default_table."
@@ -303,8 +306,7 @@ use XML::EasySQL::XMLobj;
 use strict;
 
 use vars qw/$VERSION/;
-
-$VERSION = '1.0';
+$VERSION = '1.2';
 
 =head2 new (arguments_hash_ref)
 
@@ -372,6 +374,9 @@ sub _build_xml {
 			} else {
 				next;
 			}
+		}
+		if(!defined $data->{$key}) {
+			next;
 		}
 		if($type eq 'attrib') {
 			$xml->setAttr($key, $data->{$key});

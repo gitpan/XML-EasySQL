@@ -1,7 +1,22 @@
+=head1 NAME
+
+XML::EasySQL::XMLobj::Node - Node interface. Derived from a fork of Robert Hanson's killer XML::EasyOBJ module, which offers Easy XML object navigation
+
+=head1 VERSION
+
+Version 1.2
+
+=head1 METHODS
+
+=cut
+
 package XML::EasySQL::XMLobj::Node;
 
 use XML::DOM;
 use strict;
+
+use vars qw/$VERSION/;
+$VERSION = '1.2';
 
 use vars qw/$AUTOLOAD/;
 
@@ -60,8 +75,8 @@ sub AUTOLOAD {
 					my $node = $self->makeNewNode($funcname);
 					$nodes[$i] = $node;
 				} 
-		}
-		return $nodes[$index];
+			}
+			return $nodes[$index];
 		} else {
 			if(!defined $nodes[0]) {
 ;
